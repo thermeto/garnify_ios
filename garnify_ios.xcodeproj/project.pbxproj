@@ -33,6 +33,13 @@
 		17B068CA29C2715F00D05468 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 17B068C929C2715F00D05468 /* GoogleService-Info.plist */; };
 		17B068CB29C2715F00D05468 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 17B068C929C2715F00D05468 /* GoogleService-Info.plist */; };
 		17B068CC29C2715F00D05468 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 17B068C929C2715F00D05468 /* GoogleService-Info.plist */; };
+		96C8095329D8760E009FE0D3 /* ButtonConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C8095229D8760E009FE0D3 /* ButtonConfiguration.swift */; };
+		96C8095A29D8783A009FE0D3 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C8095929D8783A009FE0D3 /* ImagePicker.swift */; };
+		96C8095C29D87CED009FE0D3 /* CustomColorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C8095B29D87CED009FE0D3 /* CustomColorPicker.swift */; };
+		96C8095E29D883C5009FE0D3 /* TopBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C8095D29D883C5009FE0D3 /* TopBar.swift */; };
+		96C8096029D88441009FE0D3 /* CenterSpace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C8095F29D88441009FE0D3 /* CenterSpace.swift */; };
+		96C8096229D887CB009FE0D3 /* EditMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C8096129D887CB009FE0D3 /* EditMenu.swift */; };
+		96C8096429D8994B009FE0D3 /* EditMenuOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C8096329D8994B009FE0D3 /* EditMenuOptions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +82,13 @@
 		17B068C329C2691600D05468 /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
 		17B068C929C2715F00D05468 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		17B068CD29C2735F00D05468 /* garnify-ios-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "garnify-ios-Info.plist"; sourceTree = SOURCE_ROOT; };
+		96C8095229D8760E009FE0D3 /* ButtonConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonConfiguration.swift; sourceTree = "<group>"; };
+		96C8095929D8783A009FE0D3 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		96C8095B29D87CED009FE0D3 /* CustomColorPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomColorPicker.swift; sourceTree = "<group>"; };
+		96C8095D29D883C5009FE0D3 /* TopBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopBar.swift; sourceTree = "<group>"; };
+		96C8095F29D88441009FE0D3 /* CenterSpace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenterSpace.swift; sourceTree = "<group>"; };
+		96C8096129D887CB009FE0D3 /* EditMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMenu.swift; sourceTree = "<group>"; };
+		96C8096329D8994B009FE0D3 /* EditMenuOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMenuOptions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,8 +141,8 @@
 		171AC20029C3A813008DE49B /* Nails */ = {
 			isa = PBXGroup;
 			children = (
+				96C8094F29D875AA009FE0D3 /* Playground */,
 				171AC1FA29C3A7DB008DE49B /* NailsLobbyView.swift */,
-				171AC1F929C3A7DB008DE49B /* NailsPlaygroundView.swift */,
 			);
 			path = Nails;
 			sourceTree = "<group>";
@@ -230,6 +244,21 @@
 				17B068C329C2691600D05468 /* AuthenticationViewModel.swift */,
 			);
 			path = Auth;
+			sourceTree = "<group>";
+		};
+		96C8094F29D875AA009FE0D3 /* Playground */ = {
+			isa = PBXGroup;
+			children = (
+				171AC1F929C3A7DB008DE49B /* NailsPlaygroundView.swift */,
+				96C8095229D8760E009FE0D3 /* ButtonConfiguration.swift */,
+				96C8095929D8783A009FE0D3 /* ImagePicker.swift */,
+				96C8095B29D87CED009FE0D3 /* CustomColorPicker.swift */,
+				96C8095D29D883C5009FE0D3 /* TopBar.swift */,
+				96C8095F29D88441009FE0D3 /* CenterSpace.swift */,
+				96C8096129D887CB009FE0D3 /* EditMenu.swift */,
+				96C8096329D8994B009FE0D3 /* EditMenuOptions.swift */,
+			);
+			path = Playground;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -380,16 +409,23 @@
 			files = (
 				171AC20529C3A866008DE49B /* Api.swift in Sources */,
 				171AC1FC29C3A7DB008DE49B /* MainMenuView.swift in Sources */,
+				96C8095A29D8783A009FE0D3 /* ImagePicker.swift in Sources */,
 				171AC1FE29C3A7DB008DE49B /* NailsLobbyView.swift in Sources */,
+				96C8095329D8760E009FE0D3 /* ButtonConfiguration.swift in Sources */,
 				17B068C429C2691600D05468 /* AuthenticationViewModel.swift in Sources */,
 				171AC20629C3A866008DE49B /* ApiTypes.swift in Sources */,
 				171AC20429C3A866008DE49B /* ApiClient.swift in Sources */,
 				170DC50229C5F09300A1612D /* SearchLocationPanel.swift in Sources */,
 				17B068C129C268D000D05468 /* UIApplication+RootViewController.swift in Sources */,
+				96C8095C29D87CED009FE0D3 /* CustomColorPicker.swift in Sources */,
 				171AC1FD29C3A7DB008DE49B /* NailsPlaygroundView.swift in Sources */,
 				17B0688C29C2638000D05468 /* AuthView.swift in Sources */,
 				171AC20D29C3B476008DE49B /* ProfileView.swift in Sources */,
+				96C8096229D887CB009FE0D3 /* EditMenu.swift in Sources */,
+				96C8096429D8994B009FE0D3 /* EditMenuOptions.swift in Sources */,
 				17B0688A29C2638000D05468 /* garnify_iosApp.swift in Sources */,
+				96C8095E29D883C5009FE0D3 /* TopBar.swift in Sources */,
+				96C8096029D88441009FE0D3 /* CenterSpace.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
