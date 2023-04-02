@@ -40,6 +40,7 @@
 		96C8096029D88441009FE0D3 /* CenterSpace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C8095F29D88441009FE0D3 /* CenterSpace.swift */; };
 		96C8096229D887CB009FE0D3 /* EditMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C8096129D887CB009FE0D3 /* EditMenu.swift */; };
 		96C8096429D8994B009FE0D3 /* EditMenuOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C8096329D8994B009FE0D3 /* EditMenuOptions.swift */; };
+		96C8096629D8A9FB009FE0D3 /* NailsApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C8096529D8A9FB009FE0D3 /* NailsApiService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,6 +90,7 @@
 		96C8095F29D88441009FE0D3 /* CenterSpace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenterSpace.swift; sourceTree = "<group>"; };
 		96C8096129D887CB009FE0D3 /* EditMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMenu.swift; sourceTree = "<group>"; };
 		96C8096329D8994B009FE0D3 /* EditMenuOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMenuOptions.swift; sourceTree = "<group>"; };
+		96C8096529D8A9FB009FE0D3 /* NailsApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NailsApiService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,6 +145,7 @@
 			children = (
 				96C8094F29D875AA009FE0D3 /* Playground */,
 				171AC1FA29C3A7DB008DE49B /* NailsLobbyView.swift */,
+				96C8096529D8A9FB009FE0D3 /* NailsApiService.swift */,
 			);
 			path = Nails;
 			sourceTree = "<group>";
@@ -409,6 +412,7 @@
 			files = (
 				171AC20529C3A866008DE49B /* Api.swift in Sources */,
 				171AC1FC29C3A7DB008DE49B /* MainMenuView.swift in Sources */,
+				96C8096629D8A9FB009FE0D3 /* NailsApiService.swift in Sources */,
 				96C8095A29D8783A009FE0D3 /* ImagePicker.swift in Sources */,
 				171AC1FE29C3A7DB008DE49B /* NailsLobbyView.swift in Sources */,
 				96C8095329D8760E009FE0D3 /* ButtonConfiguration.swift in Sources */,

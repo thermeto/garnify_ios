@@ -32,13 +32,13 @@ class AuthenticationViewModel: ObservableObject {
     
     @Published var isValid: Bool  = false
     @Published var authenticationState: AuthenticationState = .unauthenticated {
-            didSet {
-                if authenticationState == .unauthenticated {
-                    // Navigate to login page
-                    flow = .login
-                }
+        didSet {
+            if authenticationState == .unauthenticated {
+                // Navigate to login page
+                flow = .login
             }
         }
+    }
     @Published var errorMessage: String = ""
     @Published var user: User?
     @Published var displayName: String = ""
@@ -173,7 +173,18 @@ extension AuthenticationViewModel {
             let result = try await Auth.auth().signIn(with: credential)
             let firebaseUser = result.user
             print("User \(firebaseUser.uid) signed in with email \(firebaseUser.email ?? "unknown")")
-            return true
+            
+            // Get the Firebase ID token
+            let firebaseIdTokenResult = try await firebaseUser.getIDTokenResult()
+            let firebaseIdToken = firebaseIdTokenResult.token
+
+            // Register user in Django backend
+            if await registerUserOnBackend(idToken: firebaseIdToken, name: firebaseUser.displayName, lastName: nil) {
+                return true
+            } else {
+                // Handle unsuccessful registration
+                return false
+            }
         }
         catch {
             print(error.localizedDescription)
@@ -181,4 +192,37 @@ extension AuthenticationViewModel {
             return false
         }
     }
+    
+    func registerUserOnBackend(idToken: String, name: String?, lastName: String?) async -> Bool {
+        let url = URL(string: "http://127.0.0.1:8000/register")
+        var request = URLRequest(url: url!)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        var body = ["idToken": idToken]
+        if let name = name {
+            body["name"] = name
+        }
+        if let lastName = lastName {
+            body["last_name"] = lastName
+        }
+        
+        request.httpBody = try? JSONSerialization.data(withJSONObject: body, options: [])
+        
+        do {
+            let (data, response) = try await URLSession.shared.data(for: request)
+            guard let httpResponse = response as? HTTPURLResponse,
+                  httpResponse.statusCode == 201 else {
+                // Handle unsuccessful registration
+                return false
+            }
+            
+            // Registration successful
+            return true
+        } catch {
+            print("Error while registering user in Django backend: \(error.localizedDescription)")
+            return false
+        }
+    }
 }
+

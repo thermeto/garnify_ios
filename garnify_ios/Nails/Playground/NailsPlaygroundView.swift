@@ -10,6 +10,8 @@ import Firebase
 
 
 struct NailsPlaygroundView: View {
+    @StateObject private var nailsApiService = NailsApiService()
+
     @State private var selectedMode: EditMode?
     @State private var showOptions: Bool = false
     @State private var showImagePicker: Bool = false
@@ -65,10 +67,12 @@ struct NailsPlaygroundView: View {
                                         selectedLength: $selectedLength // Add this line
                                     )
                 }
-                EditMenu(modes: modes, imageSelected: $imageSelected, selectedMode: $selectedMode, showOptions: $showOptions)
+                EditMenu(modes: modes, imageSelected: $imageSelected, selectedMode: $selectedMode, showOptions: $showOptions, selectedImage: $selectedImage)
             }
         }
+        .environmentObject(nailsApiService)
     }
+    
     
     private var shortLengthOptionButton: ButtonConfiguration{
         ButtonConfiguration(title: "Short", action: {selectedLength = Api.Types.Request.GarnifyNailsRequest.GarnifyRequirements.LengthType.short}, frameWidth: 100)

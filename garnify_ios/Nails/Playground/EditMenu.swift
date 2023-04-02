@@ -13,7 +13,10 @@ struct EditMenu: View {
     @Binding var imageSelected: Bool
     @Binding var selectedMode: EditMode?
     @Binding var showOptions: Bool
+    @Binding var selectedImage: UIImage?
+    @EnvironmentObject var nailsApiService: NailsApiService
 
+    
     private func modeButton(mode: EditMode) -> some View {
         Button(action: {
             if selectedMode == mode {
@@ -30,7 +33,7 @@ struct EditMenu: View {
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 50, height: 50)
                     .font(.system(size: 24))
-
+                
                 // Button title
                 Text(mode.title)
                     .font(.system(size: 12))
@@ -41,33 +44,42 @@ struct EditMenu: View {
             .cornerRadius(16)
         })
     }
-
+    
     var body: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 20) {
-                if imageSelected {
-                    VStack(spacing: 8) {
-                        // Button icon
-                        Button(action: {
-                            // Action here
-                        }, label: {
-                            Image("g_icon")
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: 50, height: 50)
-                                .font(.system(size: 24))
-                        })
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 20) {
+                    if let _ = selectedImage {
+                        VStack(spacing: 8) {
+                            // Button icon
+                            Button(action: {
+                                Task {
+                                    if let image = selectedImage {
+                                        do {
+                                            let userToken = try await nailsApiService.getUserToken()
+                                            try await nailsApiService.sendImageToBackend(image: image, userToken: userToken)
+                                        } catch {
+                                            print("Error sending image: \(error.localizedDescription)")
+                                        }
+                                    }
+                                }
+                            }, label: {
+                                Image("g_icon")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: 50, height: 50)
+                                    .font(.system(size: 24))
+                            })
 
-                        // Button title
-                        Text("garnify")
-                            .font(.system(size: 12))
+                            // Button title
+                            Text("garnify")
+                                .font(.system(size: 12))
+                        }
+                    }
+                    ForEach(modes, id: \.self) { mode in
+                        modeButton(mode: mode)
                     }
                 }
-                ForEach(modes, id: \.self) { mode in
-                    modeButton(mode: mode)
-                }
+                .padding(.horizontal)
             }
-            .padding(.horizontal)
         }
-    }
 }
