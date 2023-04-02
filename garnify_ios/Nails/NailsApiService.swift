@@ -8,6 +8,7 @@
 import Foundation
 import Combine
 import Firebase
+import SwiftUI
 
 
 class NailsApiService : ObservableObject{
@@ -24,7 +25,13 @@ class NailsApiService : ObservableObject{
         }
     }
     
-    func sendImageToBackend(image: UIImage, userToken: String) async throws {
+    func sendGarnifyNailsRequest(
+        image: UIImage,
+        selectedTags: [String],
+        selectedColorHex: String,
+        selectedLength: Api.Types.Request.GarnifyNailsRequest.GarnifyRequirements.LengthType
+    ) async throws {
+        let userToken = try await getUserToken()
         let url = URL(string: "http://127.0.0.1:8000/nails/")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -37,12 +44,11 @@ class NailsApiService : ObservableObject{
         
         let body = NSMutableData()
         
-        // add image data
-        body.append("--\(boundary)\r\n".data(using: .utf8)!)
-        body.append("Content-Disposition: form-data; name=\"image\"; filename=\"image.jpg\"\r\n".data(using: .utf8)!)
-        body.append("Content-Type: image/jpeg\r\n\r\n".data(using: .utf8)!)
-        body.append(imageData)
-        body.append("\r\n".data(using: .utf8)!)
+        body.appendFormData(name: "image", filename: "image.jpg", contentType: "image/jpeg", data: imageData, using: boundary)
+        let selectedTagsString = selectedTags.joined(separator: ",")
+        body.appendFormData(name: "selectedTags", value: selectedTagsString, using: boundary)
+        body.appendFormData(name: "selectedColor", value: selectedColorHex, using: boundary)
+        body.appendFormData(name: "selectedLength", value: selectedLength.rawValue, using: boundary)
         
         body.append("--\(boundary)--\r\n".data(using: .utf8)!)
         
@@ -58,4 +64,22 @@ class NailsApiService : ObservableObject{
     }
 
 
+}
+
+extension NSMutableData {
+    func appendFormData(name: String, value: String, using boundary: String) {
+        append("--\(boundary)\r\n".data(using: .utf8)!)
+        append("Content-Disposition: form-data; name=\"\(name)\"\r\n".data(using: .utf8)!)
+        append("\r\n".data(using: .utf8)!)
+        append(value.data(using: .utf8)!)
+        append("\r\n".data(using: .utf8)!)
+    }
+    
+    func appendFormData(name: String, filename: String, contentType: String, data: Data, using boundary: String) {
+        append("--\(boundary)\r\n".data(using: .utf8)!)
+        append("Content-Disposition: form-data; name=\"\(name)\"; filename=\"\(filename)\"\r\n".data(using: .utf8)!)
+        append("Content-Type: \(contentType)\r\n\r\n".data(using: .utf8)!)
+        append(data)
+        append("\r\n".data(using: .utf8)!)
+    }
 }

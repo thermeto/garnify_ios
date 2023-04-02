@@ -67,7 +67,7 @@ struct NailsPlaygroundView: View {
                                         selectedLength: $selectedLength // Add this line
                                     )
                 }
-                EditMenu(modes: modes, imageSelected: $imageSelected, selectedMode: $selectedMode, showOptions: $showOptions, selectedImage: $selectedImage)
+                EditMenu(modes: modes, imageSelected: $imageSelected, selectedMode: $selectedMode, showOptions: $showOptions, selectedImage: $selectedImage, selectedTags: $tags, selectedColor: $selectedColor, selectedLength: $selectedLength)
             }
         }
         .environmentObject(nailsApiService)

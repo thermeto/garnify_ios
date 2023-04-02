@@ -14,6 +14,9 @@ struct EditMenu: View {
     @Binding var selectedMode: EditMode?
     @Binding var showOptions: Bool
     @Binding var selectedImage: UIImage?
+    @Binding var selectedTags: [String]
+    @Binding var selectedColor: Color
+    @Binding var selectedLength: Api.Types.Request.GarnifyNailsRequest.GarnifyRequirements.LengthType
     @EnvironmentObject var nailsApiService: NailsApiService
 
     
@@ -55,8 +58,12 @@ struct EditMenu: View {
                                 Task {
                                     if let image = selectedImage {
                                         do {
-                                            let userToken = try await nailsApiService.getUserToken()
-                                            try await nailsApiService.sendImageToBackend(image: image, userToken: userToken)
+                                            try await nailsApiService.sendGarnifyNailsRequest(
+                                                image: image,
+                                                selectedTags: selectedTags,
+                                                selectedColorHex: selectedColor.hexString,
+                                                selectedLength: selectedLength
+                                            )
                                         } catch {
                                             print("Error sending image: \(error.localizedDescription)")
                                         }
