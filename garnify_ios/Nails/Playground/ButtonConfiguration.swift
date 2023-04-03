@@ -9,9 +9,10 @@ import Foundation
 
 struct ButtonConfiguration: Hashable {
     let title: String
-    let action: () -> Void
+    var action: (() -> Void)? = nil
     let frameWidth: CGFloat
-    
+    var value: Any? = nil
+
     static func == (lhs: ButtonConfiguration, rhs: ButtonConfiguration) -> Bool {
         return lhs.title == rhs.title
     }

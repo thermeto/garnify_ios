@@ -28,7 +28,11 @@ struct NailsPlaygroundView: View {
     init() {
         modes = [
             EditMode(icon: "color", title: "Color", options: []),
-            EditMode(icon: "length", title: "Length", options: [shortLengthOptionButton, midLengthOptionButton, longLengthOptionButton]),
+            EditMode(icon: "length", title: "Length", options: [
+                ButtonConfiguration(title: "Short", frameWidth: 100, value: Api.Types.Request.GarnifyNailsRequest.GarnifyRequirements.LengthType.short),
+                ButtonConfiguration(title: "Mid-length", frameWidth: 140, value: Api.Types.Request.GarnifyNailsRequest.GarnifyRequirements.LengthType.mid),
+                ButtonConfiguration(title: "Long", frameWidth: 100, value: Api.Types.Request.GarnifyNailsRequest.GarnifyRequirements.LengthType.long)
+            ]),
             EditMode(icon: "tags", title: "Tags", options: []),
             EditMode(icon: "influencer", title: "Influence", options: [objInfluenceOptionButton, modelInfluenceOptionButton])
         ]

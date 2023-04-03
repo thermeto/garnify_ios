@@ -16,29 +16,37 @@ struct EditMenuOptions: View {
     @Binding var showColorPicker: Bool
     @Binding var selectedLength: Api.Types.Request.GarnifyNailsRequest.GarnifyRequirements.LengthType
     
-
+    
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             if selectedMode?.title == "Tags" {
                 tagsOptions
-            }
-            else if selectedMode?.title == "Color" {
+            } else if selectedMode?.title == "Color" {
                 CustomColorPicker(selectedColor: $selectedColor)
                     .padding()
-            }
-            else {
-                regularOptions
+            } else {
+                VStack {
+                    if selectedMode?.title == "Length" {
+                        lengthOptions
+                    } else {
+                        influenceOptions
+                    }
+                }
             }
         }
         .background(Color.yellow)
         .cornerRadius(16)
     }
-
-
-    private var regularOptions: some View{
+    
+    
+    private var lengthOptions: some View {
         HStack(spacing: 10) {
             ForEach(selectedMode!.options, id: \.self) { option in
-                Button(action: option.action) {
+                Button(action: {
+                    if let lengthValue = option.value as? Api.Types.Request.GarnifyNailsRequest.GarnifyRequirements.LengthType {
+                        selectedLength = lengthValue
+                    }
+                }) {
                     Text(option.title)
                         .padding(.vertical, 10)
                         .padding(.horizontal, 20)
@@ -48,6 +56,13 @@ struct EditMenuOptions: View {
                         .cornerRadius(15)
                 }
             }
+        }
+        .padding(.horizontal)
+    }
+    
+    private var influenceOptions: some View {
+        HStack(spacing: 10) {
+            // Add influence options here
         }
         .padding(.horizontal)
     }
