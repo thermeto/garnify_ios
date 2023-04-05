@@ -39,7 +39,9 @@ struct NailsLobbyView: View {
                 }
             }
         }
+        .navigationBarBackButtonHidden(true)
     }
+    
 }
 
 struct NailsLobbyView_Previews: PreviewProvider {

@@ -17,6 +17,7 @@ struct CenterSpace: View {
             Image(uiImage: image)
                 .resizable()
                 .scaledToFit()
+                .scaleEffect(0.9)
         } else {
             Button(action: {
                 showImagePicker = true

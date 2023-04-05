@@ -48,6 +48,7 @@ struct NailsPlaygroundView: View {
                 TopBar(selectedMode: $selectedMode)
                 Spacer()
                 CenterSpace(showImagePicker: $showImagePicker, selectedImage: $selectedImage)
+                    .offset(y: -40)
                 Spacer()
             }
             .sheet(isPresented: $showImagePicker) {
@@ -55,12 +56,6 @@ struct NailsPlaygroundView: View {
             }
             VStack{
                 Spacer()
-                if let image = selectedImage {
-                    Image(uiImage: image)
-                        .resizable()
-                        .scaledToFit()
-                    Spacer()
-                }
                 if showOptions {
                     EditMenuOptions(
                                         selectedMode: $selectedMode,
@@ -75,6 +70,8 @@ struct NailsPlaygroundView: View {
             }
         }
         .environmentObject(nailsApiService)
+        .navigationBarBackButtonHidden(true)
+        
     }
     
     
@@ -119,3 +116,15 @@ struct NailsPlaygroundView_Previews: PreviewProvider {
         NailsPlaygroundView()
     }
 }
+
+extension UINavigationController: UIGestureRecognizerDelegate {
+    override open func viewDidLoad() {
+        super.viewDidLoad()
+        interactivePopGestureRecognizer?.delegate = self
+    }
+
+    public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        return viewControllers.count > 1
+    }
+}
+

@@ -30,7 +30,7 @@ class NailsApiService : ObservableObject{
         selectedTags: [String],
         selectedColorHex: String,
         selectedLength: Api.Types.Request.GarnifyNailsRequest.GarnifyRequirements.LengthType
-    ) async throws {
+    ) async throws -> (UIImage, String) {
         let userToken = try await getUserToken()
         let url = URL(string: "http://127.0.0.1:8000/nails/")!
         var request = URLRequest(url: url)
@@ -60,9 +60,19 @@ class NailsApiService : ObservableObject{
             throw NSError(domain: "", code: httpResponse.statusCode, userInfo: [NSLocalizedDescriptionKey: "Server responded with a non-200 status code"])
         }
         
-        print("Image sent successfully")
+        let decoder = JSONDecoder()
+        let garnifyResult = try decoder.decode(GarnifyNailsResponse.self, from: data)
+        
+        guard let imageDataResponse = Data(base64Encoded: garnifyResult.image) else {
+            throw NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Unable to decode base64 image data"])
+        }
+        
+        guard let receivedImage = UIImage(data: imageDataResponse) else {
+            throw NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Unable to create UIImage from data"])
+        }
+        
+        return (receivedImage, garnifyResult.receivedDateTime)
     }
-
 
 }
 

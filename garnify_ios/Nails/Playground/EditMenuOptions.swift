@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 
+
 struct EditMenuOptions: View {
     @Binding var selectedMode: EditMode?
     @Binding var selectedColor: Color
@@ -15,7 +16,8 @@ struct EditMenuOptions: View {
     @Binding var tags: [String]
     @Binding var showColorPicker: Bool
     @Binding var selectedLength: Api.Types.Request.GarnifyNailsRequest.GarnifyRequirements.LengthType
-    
+    static let buttonHeight: CGFloat = 40
+
     
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
@@ -34,7 +36,7 @@ struct EditMenuOptions: View {
                 }
             }
         }
-        .background(Color.yellow)
+//        .background(Color.black.opacity(0.5))
         .cornerRadius(16)
     }
     
@@ -52,8 +54,8 @@ struct EditMenuOptions: View {
                         .padding(.horizontal, 20)
                         .foregroundColor(Color.white)
                         .background(Color.black.opacity(0.5))
-                        .frame(width: option.frameWidth, height: 40, alignment: .center)
-                        .cornerRadius(15)
+                        .frame(width: option.frameWidth, height: EditMenuOptions.buttonHeight, alignment: .center)
+                        .cornerRadius(50)
                 }
             }
         }
@@ -77,7 +79,7 @@ struct EditMenuOptions: View {
                 .font(.system(size: 18))
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding(.trailing, 20)
-                .frame(height: 40)
+                .frame(height: EditMenuOptions.buttonHeight)
             Button(action: {
                 tags.append(tagTypedText)
                 tagTypedText = ""
@@ -88,7 +90,7 @@ struct EditMenuOptions: View {
                     .foregroundColor(Color.white)
                     .background(Color.black.opacity(0.5))
                     .cornerRadius(10)
-                    .frame(height: 40)
+                    .frame(height: EditMenuOptions.buttonHeight)
             }
             Spacer()
         }
@@ -103,7 +105,7 @@ struct EditMenuOptions: View {
             }, label: {
                 Circle()
                     .fill(selectedColor)
-                    .frame(width: 40, height: 40)
+                    .frame(width: 40, height: EditMenuOptions.buttonHeight)
                     .overlay(
                         Circle()
                             .stroke(Color.white, lineWidth: 2)
