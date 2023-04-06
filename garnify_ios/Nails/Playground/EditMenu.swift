@@ -17,6 +17,8 @@ struct EditMenu: View {
     @Binding var selectedTags: [String]
     @Binding var selectedColor: Color
     @Binding var selectedLength: Api.Types.Request.GarnifyNailsRequest.GarnifyRequirements.LengthType
+    @Binding var selectedImageURL: URL?
+
     @EnvironmentObject var nailsApiService: NailsApiService
     
     
@@ -62,7 +64,8 @@ struct EditMenu: View {
                                             image: image,
                                             selectedTags: selectedTags,
                                             selectedColorHex: selectedColor.hexString,
-                                            selectedLength: selectedLength
+                                            selectedLength: selectedLength,
+                                            imageURL: selectedImageURL!
                                         )
                                         DispatchQueue.main.async {
                                             selectedImage = receivedImage

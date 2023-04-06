@@ -11,7 +11,7 @@ import Firebase
 
 struct NailsPlaygroundView: View {
     @StateObject private var nailsApiService = NailsApiService()
-
+    
     @State private var selectedMode: EditMode?
     @State private var showOptions: Bool = false
     @State private var showImagePicker: Bool = false
@@ -20,8 +20,11 @@ struct NailsPlaygroundView: View {
     @State public var showColorPicker = false
     @State private var selectedImage: UIImage?
     @State private var imageSelected: Bool = false
+    @State private var selectedImageURL: URL?
     @State private var tags: [String] = []
     @State private var selectedLength: Api.Types.Request.GarnifyNailsRequest.GarnifyRequirements.LengthType = Api.Types.Request.GarnifyNailsRequest.GarnifyRequirements.LengthType.short
+    @State private var showStatusBar: Bool = false
+    
     
     var modes: [EditMode] = []
     
@@ -52,21 +55,24 @@ struct NailsPlaygroundView: View {
                 Spacer()
             }
             .sheet(isPresented: $showImagePicker) {
-                ImagePicker(selectedImage: $selectedImage, imageSelected: $imageSelected)
+                ImagePicker(selectedImage: $selectedImage, imageSelected: $imageSelected, selectedImageURL: $selectedImageURL)
             }
             VStack{
                 Spacer()
                 if showOptions {
                     EditMenuOptions(
-                                        selectedMode: $selectedMode,
-                                        selectedColor: $selectedColor,
-                                        tagTypedText: $tagTypedText,
-                                        tags: $tags,
-                                        showColorPicker: $showColorPicker,
-                                        selectedLength: $selectedLength // Add this line
-                                    )
+                        selectedMode: $selectedMode,
+                        selectedColor: $selectedColor,
+                        tagTypedText: $tagTypedText,
+                        tags: $tags,
+                        showColorPicker: $showColorPicker,
+                        selectedLength: $selectedLength // Add this line
+                    )
                 }
-                EditMenu(modes: modes, imageSelected: $imageSelected, selectedMode: $selectedMode, showOptions: $showOptions, selectedImage: $selectedImage, selectedTags: $tags, selectedColor: $selectedColor, selectedLength: $selectedLength)
+                EditMenu(modes: modes, imageSelected: $imageSelected, selectedMode: $selectedMode, showOptions: $showOptions, selectedImage: $selectedImage, selectedTags: $tags, selectedColor: $selectedColor, selectedLength: $selectedLength, selectedImageURL: $selectedImageURL)
+            }
+            VStack{
+                StatusBarContainerView(showStatusBar: $showStatusBar, selectedColor: selectedColor, selectedLength: selectedLength, tags: tags)
             }
         }
         .environmentObject(nailsApiService)
@@ -91,6 +97,8 @@ struct NailsPlaygroundView: View {
         ButtonConfiguration(title: "Model", action: {}, frameWidth: 100)
     }
 }
+
+
 
 struct EditMode: Hashable {
     let icon: String
@@ -122,7 +130,7 @@ extension UINavigationController: UIGestureRecognizerDelegate {
         super.viewDidLoad()
         interactivePopGestureRecognizer?.delegate = self
     }
-
+    
     public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         return viewControllers.count > 1
     }

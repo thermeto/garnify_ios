@@ -29,7 +29,8 @@ class NailsApiService : ObservableObject{
         image: UIImage,
         selectedTags: [String],
         selectedColorHex: String,
-        selectedLength: Api.Types.Request.GarnifyNailsRequest.GarnifyRequirements.LengthType
+        selectedLength: Api.Types.Request.GarnifyNailsRequest.GarnifyRequirements.LengthType,
+        imageURL: URL
     ) async throws -> (UIImage, String) {
         let userToken = try await getUserToken()
         let url = URL(string: "http://127.0.0.1:8000/nails/")!
@@ -43,13 +44,13 @@ class NailsApiService : ObservableObject{
         let imageData = image.jpegData(compressionQuality: 0.5)!
         
         let body = NSMutableData()
-        
-        body.appendFormData(name: "image", filename: "image.jpg", contentType: "image/jpeg", data: imageData, using: boundary)
+        let imageFilename = imageURL.lastPathComponent
+        body.appendFormData(name: "image", filename: imageFilename, contentType: "image/jpeg", data: imageData, using: boundary)
         let selectedTagsString = selectedTags.joined(separator: ",")
         body.appendFormData(name: "selectedTags", value: selectedTagsString, using: boundary)
         body.appendFormData(name: "selectedColor", value: selectedColorHex, using: boundary)
         body.appendFormData(name: "selectedLength", value: selectedLength.rawValue, using: boundary)
-        
+            
         body.append("--\(boundary)--\r\n".data(using: .utf8)!)
         
         request.httpBody = body as Data

@@ -12,6 +12,8 @@ struct ImagePicker: UIViewControllerRepresentable {
     @Environment(\.presentationMode) var presentationMode
     @Binding var selectedImage: UIImage?
     @Binding var imageSelected: Bool
+    @Binding var selectedImageURL: URL?
+
     
     func makeUIViewController(context: UIViewControllerRepresentableContext<ImagePicker>) -> UIImagePickerController {
         let imagePicker = UIImagePickerController()
@@ -38,6 +40,10 @@ struct ImagePicker: UIViewControllerRepresentable {
             if let image = info[.originalImage] as? UIImage {
                 parent.selectedImage = image
                 parent.imageSelected = true
+            }
+            
+            if let imageURL = info[.imageURL] as? URL {
+                parent.selectedImageURL = imageURL
             }
             
             parent.presentationMode.wrappedValue.dismiss()

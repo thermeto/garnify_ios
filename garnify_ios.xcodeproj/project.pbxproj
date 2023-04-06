@@ -33,6 +33,7 @@
 		17B068CA29C2715F00D05468 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 17B068C929C2715F00D05468 /* GoogleService-Info.plist */; };
 		17B068CB29C2715F00D05468 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 17B068C929C2715F00D05468 /* GoogleService-Info.plist */; };
 		17B068CC29C2715F00D05468 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 17B068C929C2715F00D05468 /* GoogleService-Info.plist */; };
+		960529B129DF50C100ED4119 /* StatusBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960529B029DF50C100ED4119 /* StatusBar.swift */; };
 		96BFC74F29DDE4E600CD674A /* GarnifyNailsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BFC74E29DDE4E600CD674A /* GarnifyNailsResponse.swift */; };
 		96C8095329D8760E009FE0D3 /* ButtonConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C8095229D8760E009FE0D3 /* ButtonConfiguration.swift */; };
 		96C8095A29D8783A009FE0D3 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C8095929D8783A009FE0D3 /* ImagePicker.swift */; };
@@ -84,6 +85,7 @@
 		17B068C329C2691600D05468 /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
 		17B068C929C2715F00D05468 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		17B068CD29C2735F00D05468 /* garnify-ios-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "garnify-ios-Info.plist"; sourceTree = SOURCE_ROOT; };
+		960529B029DF50C100ED4119 /* StatusBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBar.swift; sourceTree = "<group>"; };
 		96BFC74E29DDE4E600CD674A /* GarnifyNailsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GarnifyNailsResponse.swift; sourceTree = "<group>"; };
 		96C8095229D8760E009FE0D3 /* ButtonConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonConfiguration.swift; sourceTree = "<group>"; };
 		96C8095929D8783A009FE0D3 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
@@ -271,6 +273,7 @@
 				96C8095F29D88441009FE0D3 /* CenterSpace.swift */,
 				96C8096129D887CB009FE0D3 /* EditMenu.swift */,
 				96C8096329D8994B009FE0D3 /* EditMenuOptions.swift */,
+				960529B029DF50C100ED4119 /* StatusBar.swift */,
 			);
 			path = Playground;
 			sourceTree = "<group>";
@@ -442,6 +445,7 @@
 				17B0688A29C2638000D05468 /* garnify_iosApp.swift in Sources */,
 				96C8095E29D883C5009FE0D3 /* TopBar.swift in Sources */,
 				96C8096029D88441009FE0D3 /* CenterSpace.swift in Sources */,
+				960529B129DF50C100ED4119 /* StatusBar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
