@@ -15,15 +15,14 @@ import GoogleSignIn
 struct AuthView: View {
     @State private var isLogined = false
     @EnvironmentObject var viewModel: AuthenticationViewModel
-    @Environment(\.dismiss) var dismiss
     
     private func signInWithGoogle() {
         Task {
-          if await viewModel.signInWithGoogle() == true {
-            dismiss()
-          }
+            if await viewModel.signInWithGoogle() {
+                isLogined = true
+            }
         }
-      }
+    }
     
     var body: some View {
         NavigationView {

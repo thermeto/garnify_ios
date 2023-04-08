@@ -24,7 +24,8 @@ struct NailsPlaygroundView: View {
     @State private var tags: [String] = []
     @State private var selectedLength: Api.Types.Request.GarnifyNailsRequest.GarnifyRequirements.LengthType = Api.Types.Request.GarnifyNailsRequest.GarnifyRequirements.LengthType.short
     @State private var showStatusBar: Bool = false
-    
+    @State private var isLoading: Bool = false
+
     
     var modes: [EditMode] = []
     
@@ -48,7 +49,7 @@ struct NailsPlaygroundView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             VStack {
                 // Top bar
-                TopBar(selectedMode: $selectedMode)
+                TopBar(selectedMode: $selectedMode, showImagePicker: $showImagePicker)
                 Spacer()
                 CenterSpace(showImagePicker: $showImagePicker, selectedImage: $selectedImage)
                     .offset(y: -40)
@@ -69,7 +70,7 @@ struct NailsPlaygroundView: View {
                         selectedLength: $selectedLength // Add this line
                     )
                 }
-                EditMenu(modes: modes, imageSelected: $imageSelected, selectedMode: $selectedMode, showOptions: $showOptions, selectedImage: $selectedImage, selectedTags: $tags, selectedColor: $selectedColor, selectedLength: $selectedLength, selectedImageURL: $selectedImageURL)
+                EditMenu(modes: modes, isLoading: $isLoading, imageSelected: $imageSelected, selectedMode: $selectedMode, showOptions: $showOptions, selectedImage: $selectedImage, selectedTags: $tags, selectedColor: $selectedColor, selectedLength: $selectedLength, selectedImageURL: $selectedImageURL)
             }
             VStack{
                 StatusBarContainerView(showStatusBar: $showStatusBar, selectedColor: selectedColor, selectedLength: selectedLength, tags: tags)
@@ -77,6 +78,17 @@ struct NailsPlaygroundView: View {
         }
         .environmentObject(nailsApiService)
         .navigationBarBackButtonHidden(true)
+        .overlay(Group {
+                if isLoading {
+                    ZStack {
+                        Color.black.opacity(0.5)
+                            .ignoresSafeArea()
+                        ProgressView()
+                            .scaleEffect(2)
+                            .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                    }
+                }
+            })
         
     }
     

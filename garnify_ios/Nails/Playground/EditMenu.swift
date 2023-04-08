@@ -10,6 +10,8 @@ import SwiftUI
 
 struct EditMenu: View {
     var modes: [EditMode]
+    @Binding var isLoading: Bool
+
     @Binding var imageSelected: Bool
     @Binding var selectedMode: EditMode?
     @Binding var showOptions: Bool
@@ -55,8 +57,8 @@ struct EditMenu: View {
             HStack(spacing: 20) {
                 if let _ = selectedImage {
                     VStack(spacing: 8) {
-                        // Button icon
                         Button(action: {
+                            isLoading = true
                             Task {
                                 if let image = selectedImage {
                                     do {
@@ -68,11 +70,13 @@ struct EditMenu: View {
                                             imageURL: selectedImageURL!
                                         )
                                         DispatchQueue.main.async {
+                                            isLoading = false
                                             selectedImage = receivedImage
                                         }
                                         print("Received datetime:", receivedDatetime)
                                     } catch {
                                         print("Error sending image: \(error.localizedDescription)")
+                                        isLoading = false
                                     }
                                 }
                             }
@@ -96,4 +100,5 @@ struct EditMenu: View {
             .padding(.horizontal)
         }
     }
+        
 }

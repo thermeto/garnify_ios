@@ -10,12 +10,13 @@ import SwiftUI
 
 struct TopBar: View {
     @Binding var selectedMode: EditMode?
-
+    @Binding var showImagePicker: Bool
+    
     var body: some View {
         HStack {
             BackButton(selectedMode: $selectedMode)
             Spacer()
-            PhotoButton()
+            PhotoButton(showImagePicker: $showImagePicker)
         }
         .padding(.top, 16)
         .padding(.bottom, 8)
@@ -36,9 +37,12 @@ struct BackButton: View {
 }
 
 struct PhotoButton: View {
+    @Binding var showImagePicker: Bool
+
     var body: some View {
         Button(action: {
-            // ...
+            showImagePicker = true
+            
         }, label: {
             Image(systemName: "photo")
                 .padding(.horizontal)
